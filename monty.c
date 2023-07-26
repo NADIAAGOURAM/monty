@@ -10,10 +10,8 @@
 
 void monty_interpreter(FILE *bytecode_file)
 {
-	char *line = NULL;
-	char *opcode, *arg;
-	size_t len = 0;
-	ssize_t read;
+	char line[1024];
+	char *opcode;
 	stack_t *stack = NULL;
 	unsigned int line_number = 0;
 	int i = 0;
@@ -28,12 +26,11 @@ void monty_interpreter(FILE *bytecode_file)
 		{"nop", nop},
 		{NULL, NULL}
 	};
-	while ((read = getline(&line, &len, bytecode_file)) != -1)
+	while (fgets(line, sizeof(line), bytecode_file))
 	{
 		line_number++;
 
-		*opcode = strtok(line, " \t\n");
-		*arg = strtok(NULL, " \t\n");
+		opcode = strtok(line, " \t\n");
 		while (instructions[i].opcode != NULL)
 		{
 			if (strcmp(opcode, instructions[i].opcode) == 0)
@@ -46,11 +43,9 @@ void monty_interpreter(FILE *bytecode_file)
 		if (instructions[i].opcode == NULL)
 		{
 			fprintf(stderr, "L%d: unknown instruction %s\n", line_number, opcode);
-			free(line);
 			fclose(bytecode_file);
 			exit(EXIT_FAILURE);
 		}
 	}
-	free(line);
 	fclose(bytecode_file);
 }
