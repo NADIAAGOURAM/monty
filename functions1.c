@@ -14,7 +14,7 @@ void push(stack_t **stack, unsigned int line_number)
 	stack_t *new_node;
 
 	/* Extract the argument from the opcode line */
-	*arg = strtok(NULL, " \t\n");
+	arg = strtok(NULL, " \t\n");
 	if (arg == NULL)
 	{
 		fprintf(stderr, "L%d: usage: push integer\n", line_number);
@@ -41,6 +41,7 @@ void pall(stack_t **stack, unsigned int line_number)
 {
 	stack_t *current = *stack;
 
+	(void)line_number;
 	while (current != NULL)
 	{
 		printf("%d\n", current->n);
