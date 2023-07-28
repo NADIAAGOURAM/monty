@@ -53,5 +53,6 @@ void monty_interpreter(FILE *bytecode_file);
 /*Helper functions*/
 stack_t *create_node(int n);
 void tokenize_line(char *line, char **opcode, char **arg);
+void free_stack(stack_t **stack);
 
 #endif /* MONTY_H */

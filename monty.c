@@ -47,8 +47,28 @@ void monty_interpreter(FILE *bytecode_file)
 		{
 			fprintf(stderr, "L%d: unknown instruction %s\n", line_number, opcode);
 			fclose(bytecode_file);
+			free_stack(&stack);
 			exit(EXIT_FAILURE);
 		}
 	}
 	fclose(bytecode_file);
+	free_stack(&stack);
+}
+
+/**
+* free_stack - Frees the stack
+* @stack: Pointer
+* */
+void free_stack(stack_t **stack)
+{
+	stack_t *current = *stack;
+	stack_t *next;
+
+	while (current != NULL)
+	{
+		next = current->next;
+		free(current);
+		current = next;
+	}
+	*stack = NULL;
 }
