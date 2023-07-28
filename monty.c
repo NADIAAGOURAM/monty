@@ -11,7 +11,7 @@
 void monty_interpreter(FILE *bytecode_file)
 {
 	char line[1024];
-	char *opcode, *arg;
+	char *opcode;
 	stack_t *stack = NULL;
 	unsigned int line_number = 0;
 	int i;
@@ -33,7 +33,7 @@ void monty_interpreter(FILE *bytecode_file)
 		len = strlen(line);
 		if (len > 0 && line[len - 1] == '\n')
 			line[len - 1] = '\0';
-		tokenize_line(line, &opcode, &arg);
+		opcode = strtok(line, " ");
 		i = 0;
 		while (instructions[i].opcode != NULL)
 		{
