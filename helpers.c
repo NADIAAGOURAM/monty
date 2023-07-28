@@ -20,3 +20,16 @@ stack_t *create_node(int n)
 	new_node->next = NULL;
 	return (new_node);
 }
+
+/**
+ * tokenize_line - tokenize the input line and extract the opcode and argument
+ * @line:A pointer to a string representing a line of Monty ByteCodes file
+ * @opcode: A pointer to a pointer to a string.to store the extracted opcode.
+ * @arg:A pointer to a pointer to a string.to store the extracted argument
+ *
+ */
+void tokenize_line(char *line, char **opcode, char **arg)
+{
+	*opcode = strtok(line, " \t\n");
+	*arg = strtok(NULL, " \t\n");
+}

@@ -11,10 +11,11 @@
 void monty_interpreter(FILE *bytecode_file)
 {
 	char line[1024];
-	char *opcode;
+	char *opcode, *arg;
 	stack_t *stack = NULL;
 	unsigned int line_number = 0;
 	int i = 0;
+	size_t len = 0;
 
 	instruction_t instructions[] = {
 		{"push", push},
@@ -29,8 +30,10 @@ void monty_interpreter(FILE *bytecode_file)
 	while (fgets(line, sizeof(line), bytecode_file))
 	{
 		line_number++;
-
-		opcode = strtok(line, " \t\n");
+		len = strlen(line);
+		if (len > 0 && line[len - 1] == '\n')
+			line[len - 1] = '\0';
+		tokenize_line(line, &opcode, &arg);
 		while (instructions[i].opcode != NULL)
 		{
 			if (strcmp(opcode, instructions[i].opcode) == 0)

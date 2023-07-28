@@ -14,7 +14,7 @@ void push(stack_t **stack, unsigned int line_number)
 	stack_t *new_node;
 
 	/* Extract the argument from the opcode line */
-	arg = strtok(NULL, " \t\n");
+	tokenize_line(NULL, NULL, &arg);
 	if (arg == NULL)
 	{
 		fprintf(stderr, "L%d: usage: push integer\n", line_number);
